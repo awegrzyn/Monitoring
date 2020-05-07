@@ -21,7 +21,7 @@ jobs:
           cd alidist
           git add .
           git commit -m "Bump monitoring to ${GITHUB_REF##*/}"
-          git push "https://${{ secrets.GH_TOKEN }}@github.com/${{ secrets.ORG }}/alidist" HEAD:refs/heads/monitoring-${GITHUB_REF##*/} -f > /dev/null 2>&1
+          git push "https://${{ secrets.GH_TOKEN }}@github.com/${{ secrets.ALIDIST_ORG }}/alidist" HEAD:refs/heads/monitoring-${GITHUB_REF##*/} -f > /dev/null 2>&1
       - run: |
           cd alidist
           GITHUB_TOKEN=${{ secrets.GH_TOKEN }} ../hub-linux-amd64-2.12.7/bin/hub pull-request -h monitoring-${GITHUB_REF##*/} -b master -m "Bump monitoring to ${GITHUB_REF##*/}"
