@@ -15,14 +15,11 @@ jobs:
         set +x
         CURRENT_VERSION=`cat monitoring.sh | grep "tag:" | awk '{print $2}'`
         sed -i "s/${CURRENT_VERSION}/${GITHUB_REF##*/}/g" monitoring.sh
-    - name: Add and push commit
-      run: |
-        set +x
-        git config --global user.email ${{ secrets.GH_EMAIL }}
-        git config --global user.name ${{ secrets.GH_USERNAME }}
-        git add .
-        git commit -m "Bump monitoring to ${GITHUB_REF##*/}"
-        git push "https://awegrzyn:${{ secrets.GITHUB_TOKEN }}@github.com/awegrzyn/alidist" HEAD:refs/heads/monitoring-${GITHUB_REF##*/}
-    - run: hub pull-request -h monitoring-${GITHUB_REF##*/} -b master -m "Bump monitoring to ${GITHUB_REF##*/}"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    - name: Create PR in alidist
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: Bump monitoring
+        author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+        branch: monitoring-${GITHUB_REF##*/}
+        title: Bump monitoring to ${GITHUB_REF##*/}
