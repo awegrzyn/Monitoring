@@ -13,12 +13,13 @@ jobs:
       run: |
         set +x
         CURRENT_VERSION=`cat monitoring.sh | grep "tag:" | awk '{print $2}'`
-        sed -i "s/${CURRENT_VERSION}/123/g" monitoring.sh
+        sed -i "s/${CURRENT_VERSION}/1234/g" monitoring.sh
     - name: Create PR in alidist
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.PAT }}
         commit-message: Bump monitoring
         author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-        branch: monitoring-123
-        title: Bump monitoring to 123
+        branch: monitoring-1234
+        body: Auto-generated PR for the following release ${{ github.event.release.html_url }}
+        title: Bump monitoring to 1234
