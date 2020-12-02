@@ -8,18 +8,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        repository: 'alisw/alidist'
+        repository: 'awegrzyn/alidist'
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: Change version in recipe
       run: |
         set +x
         CURRENT_VERSION=`cat monitoring.sh | grep "tag:" | awk '{print $2}'`
-        sed -i "s/${CURRENT_VERSION}/${GITHUB_REF##*/}/g" monitoring.sh
+        sed -i "s/${CURRENT_VERSION}/123/g" monitoring.sh
     - name: Create PR in alidist
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: Bump monitoring
         author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-        branch: monitoring-${GITHUB_REF##*/}
-        title: Bump monitoring to ${GITHUB_REF##*/}
+        branch: monitoring-123
+        title: Bump monitoring to 123
