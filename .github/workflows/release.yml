@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      repository: 'alisw/alidist'
+      with:
+        repository: 'alisw/alidist'
     - name: Change version in recipe
       run: |
         set +x
