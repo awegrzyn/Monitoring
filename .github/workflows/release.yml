@@ -9,7 +9,6 @@ jobs:
     - uses: actions/checkout@v2
       with:
         repository: 'awegrzyn/alidist'
-        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Change version in recipe
       run: |
         set +x
@@ -18,7 +17,7 @@ jobs:
     - name: Create PR in alidist
       uses: peter-evans/create-pull-request@v3
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.PAT }}
         commit-message: Bump monitoring
         author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
         branch: monitoring-123
