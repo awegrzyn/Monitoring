@@ -21,7 +21,7 @@ jobs:
         git config --global user.name ${{ secrets.GH_USERNAME }}
         git add .
         git commit -m "Bump monitoring to ${GITHUB_REF##*/}"
-        git push "https://${{ secrets.GH_TOKEN }}@github.com/awegrzyn/alidist" HEAD:refs/heads/monitoring-${GITHUB_REF##*/}
+        git push "https://${{ secrets.GITHUB_TOKEN }}@github.com/awegrzyn/alidist" HEAD:refs/heads/monitoring-${GITHUB_REF##*/}
     - run: hub pull-request -h monitoring-${GITHUB_REF##*/} -b master -m "Bump monitoring to ${GITHUB_REF##*/}"
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
